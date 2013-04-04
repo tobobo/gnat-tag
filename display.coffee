@@ -1,4 +1,4 @@
-display = (width, height) ->
+disp = (width, height) ->
 
 	this.width = parseInt width
 	this.height = parseInt height
@@ -26,8 +26,3 @@ display = (width, height) ->
 		this.ctx.strokeRect 0, 0, width, height
 
 	this
-
-$ ->
-	console.log('display.coffee');
-
-
