@@ -1,5 +1,7 @@
 class Base
 	constructor: (@loc) ->
+		@dSafe = 18
+		@tMax = 500
 
 	draw: (ctx) ->
 		ctx.lineWidth = 2
