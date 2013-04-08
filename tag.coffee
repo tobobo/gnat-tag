@@ -1,44 +1,44 @@
-window.requestAnimationFrame =
-window.requestAnimationFrame or 
-window.mozRequestAnimationFrame or
-window.webkitRequestAnimationFrame or
-window.msRequestAnimationFrame
+class Tag
+	constructor: ->
+		@display = new Disp 1024, 768
+		@ctx = this.display.ctx
 
-tag = () ->
-	this.display = new disp 1024, 768
-	this.ctx = this.display.ctx
+		@agents = []
+		thisTag = @
 
-	thisTag = this
+		for i in [0..500]
+			agentX = Math.random() * @display.width
+			agentY = Math.random() * @display.height
+			agentHeading = Math.random() * 2 * Math.PI
+			agentSpeed = Math.random() * 5
+			@agents.push new
+				Agent agentX, agentY, agentHeading, agentSpeed
 
-	this.agents = []
+		window.requestAnimationFrame =
+			window.requestAnimationFrame or 
+			window.mozRequestAnimationFrame or
+			window.webkitRequestAnimationFrame or
+			window.msRequestAnimationFrame
 
-	for i in [0..1000]
-		agentX = Math.random()*this.display.width
-		agentY = Math.random()*this.display.height
-		agentHeading = Math.random()*2*Math.PI
-		agentSpeed = Math.random()*5
-		this.agents.push new
-			agent agentX, agentY, agentHeading, agentSpeed
+		@step = ->
+			thisTag.draw()
+			window.requestAnimationFrame thisTag.step
+			thisTag
 
-	this.anim = () ->
-		window.requestAnimationFrame thisTag.step
+	anim: ->
+		@step()
 
-	this.updateAgents = (agents, width, height) ->
-		for a in this.agents
+	updateAgents: (agents, width, height) ->
+		for a in @agents
 			a.update agents, width, height
 
-	this.drawAgents = () ->
-		for a in this.agents
+	drawAgents: ->
+		for a in @agents
 			a.draw this.ctx
 
-	this.draw = () ->
-		this.display.clear()
-		this.updateAgents this.agents, this.display.width, this.display.height
-		this.drawAgents()
-		this.display.draw()
+	draw: ->
+		@display.clear()
+		@updateAgents @agents, @display.width, @display.height
+		@drawAgents()
+		@display.draw()
 
-	this.step = () ->
-		thisTag.draw()
-		window.requestAnimationFrame thisTag.step
-
-	this

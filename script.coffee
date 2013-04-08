@@ -1,3 +1,3 @@
 $ ->
-	theGame = new tag()
+	theGame = new Tag
 	theGame.anim()

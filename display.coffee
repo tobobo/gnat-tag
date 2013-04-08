@@ -1,28 +1,25 @@
-disp = (width, height) ->
+class Disp
 
-	this.width = parseInt width
-	this.height = parseInt height
+	constructor: (@width, @height) ->
 
-	this.$body = $ 'body'
+		@$body = $ 'body'
 
+		@$body.append (
+			@$canvas = 
+				$('<canvas>').attr('width', width).attr('height', height)
+		)
 
-	this.$body.append (
-		this.$canvas = 
-			$('<canvas>').attr('width', width).attr('height', height)
-	)
+		@canvas = @$canvas.get 0
 
-	this.canvas = this.$canvas.get 0
+		@ctx = @canvas.getContext '2d'
+		@ctx.lineWidth = 4
 
-	this.ctx = this.canvas.getContext '2d'
-	this.ctx.lineWidth = 4
+	clear:() ->
+		@ctx.clearRect 0, 0, @width, @height
 
-	this.clear =() ->
-		this.ctx.clearRect 0, 0, this.width, this.height
+	draw: () ->
+		@drawBorder @ctx
 
-	this.draw = () ->
-		this.drawBorder(this.ctx)
+	drawBorder: () ->
+		@ctx.strokeRect 0, 0, @width, @height
 
-	this.drawBorder = () ->
-		this.ctx.strokeRect 0, 0, width, height
-
-	this
